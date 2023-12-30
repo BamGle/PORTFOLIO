@@ -1,0 +1,64 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container">
+	<div class="jumbotron" style="padding: 1.5rem 1.5rem">
+		<div class="container">
+			<h1 class="display-5">팀원찾기</h1>
+		</div>
+	</div>
+	<form th:action="@{/user/login}" method="post">
+			<div>
+				<div class="text-right">
+					<span class="badge badge-success">전체 <apan th:text = '${BoardDTO.size()}'/> 건	</span>
+				</div>
+			</div>
+			<div style="padding-top: 50px">
+				<table class="table table-hover">
+					<tr>
+						<th>번호</th>
+						<th>제목</th>
+						<th>작성일</th>
+						<th>조회</th>
+						<th>글쓴이</th>
+					</tr>
+					<tr class="text-center" th:each='question : ${BoardDTO}'>
+						<td th:text="${question.getId()}"></td>
+							<td>
+								<a th:href="@{|/question/findTeam/detail/${question.getId()}|}"  th:text = "${question.getSubject()}"></a>
+							</td>
+							<td th:text="${ #temporals.format(question.createDate,'yyyy-MM-dd HH:mm')}"></td>
+							<td th:text="${question.getHit()}"></td>
+							<td th:text="${question.getAuthor().username}"></td>
+					</tr>
+				</table>
+			</div>
+			<!-- <div align="center">
+				<c:set var="pageNum" value="<%=pageNum%>" />
+				<c:forEach var="i" begin="1" end="<%=total_page%>">
+					<a href="<c:url value="./BoardListAction.do?pageNum=${i}" " /> 
+						<c:choose>
+							<c:when test="${pageNum==i}">
+								<font color='4C5317'><b th:text = "${i}"> </b></font>
+							</c:when>
+							<c:otherwise>
+								<font color='4C5317' th:text = "${i}"> </font>
+
+							</c:otherwise>
+						</c:choose>
+					</a>
+				</c:forEach>
+			</div> -->
+			<div align="left">
+				<table>
+					<tr>
+						<td width="100%" align="left">&nbsp;&nbsp; 
+						
+						</td>
+						<td width="100%" align="right">
+							<a th:href="@{/question/create_find_team}" class="btn btn-primary">&laquo;글쓰기</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</form>
+</div>
+</html>
